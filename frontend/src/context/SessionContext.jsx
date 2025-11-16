@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect } from 'react';
-import { getSessions, getHistory, createSession } from '../lib/api.js';
+import { getSessions, getHistory, createSession, updateSession, deleteSession } from '../lib/api.js';
 
 const SessionContext = createContext();
 
@@ -96,6 +96,56 @@ export const SessionProvider = ({ children }) => {
     }
     setIsLoading(false);
   };
+
+  // Function to update session title
+  const updateSessionTitle = async (sessionId, newTitle) => {
+    try {
+      await updateSession(sessionId, newTitle);
+      
+      // Reload sessions list
+      const sessionsList = await getSessions();
+      const transformed = sessionsList.map(s => ({
+        sessionId: s.id,
+        title: s.title,
+        createdAt: s.createdAt
+      }));
+      setSessions(transformed);
+      
+      return true;
+    } catch (err) {
+      console.error('Failed to update session title:', err);
+      setError('Failed to update session title.');
+      return false;
+    }
+  };
+
+  // Function to delete a session
+  const removeSession = async (sessionId) => {
+    try {
+      await deleteSession(sessionId);
+      
+      // If deleted session is current, navigate to landing
+      if (sessionId === currentSessionId) {
+        setCurrentSessionId(null);
+        setMessages([]);
+      }
+      
+      // Reload sessions list
+      const sessionsList = await getSessions();
+      const transformed = sessionsList.map(s => ({
+        sessionId: s.id,
+        title: s.title,
+        createdAt: s.createdAt
+      }));
+      setSessions(transformed);
+      
+      return true;
+    } catch (err) {
+      console.error('Failed to delete session:', err);
+      setError('Failed to delete session.');
+      return false;
+    }
+  };
   
   // Value to pass to consumers
   const value = {
@@ -104,6 +154,8 @@ export const SessionProvider = ({ children }) => {
     currentSessionId,
     selectSession,
     startNewSession,
+    updateSessionTitle,
+    removeSession,
     messages,
     setMessages,
     isLoading,

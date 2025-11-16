@@ -1,6 +1,9 @@
 /* stylelint-disable at-rule-no-unknown */
 @import "tailwindcss";
 
+/* Tailwind CSS v4 dark mode variant */
+@custom-variant dark (&:where(.dark, .dark *));
+
 /* Base styles for full-height layout */
 html, body {
   margin: 0;

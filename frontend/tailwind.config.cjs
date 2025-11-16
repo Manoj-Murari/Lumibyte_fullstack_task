@@ -4,7 +4,7 @@ module.exports = {
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
-  darkMode: 'class',
+  // Note: darkMode is configured via @custom-variant in index.css for Tailwind v4
   theme: {
     extend: {},
   },

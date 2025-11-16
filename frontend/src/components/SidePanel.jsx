@@ -1,10 +1,14 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSession } from '../context/SessionContext';
-import { PlusSquare, MessageSquare, Trash2, X } from 'lucide-react';
+import { PlusSquare, MessageSquare, Trash2, X, Edit2, Check } from 'lucide-react';
 
 export default function SidePanel({ closePanel }) {
-  const { sessions, startNewSession, currentSessionId } = useSession();
+  const { sessions, startNewSession, currentSessionId, updateSessionTitle, removeSession } = useSession();
   const navigate = useNavigate();
+  const [editingId, setEditingId] = useState(null);
+  const [editValue, setEditValue] = useState('');
+  const [hoveredId, setHoveredId] = useState(null);
 
   const handleNewChat = async () => {
     const newSessionId = await startNewSession();
@@ -22,6 +26,42 @@ export default function SidePanel({ closePanel }) {
     // Close panel on mobile after selecting a chat
     if (window.innerWidth < 768) {
       closePanel();
+    }
+  };
+
+  const handleEditClick = (e, session) => {
+    e.stopPropagation();
+    setEditingId(session.sessionId);
+    setEditValue(session.title);
+  };
+
+  const handleSaveEdit = async (e, sessionId) => {
+    e.stopPropagation();
+    if (editValue.trim()) {
+      await updateSessionTitle(sessionId, editValue.trim());
+    }
+    setEditingId(null);
+    setEditValue('');
+  };
+
+  const handleCancelEdit = (e) => {
+    e.stopPropagation();
+    setEditingId(null);
+    setEditValue('');
+  };
+
+  const handleDeleteClick = async (e, sessionId) => {
+    e.stopPropagation();
+    if (window.confirm('Are you sure you want to delete this chat session?')) {
+      const success = await removeSession(sessionId);
+      if (success) {
+        // If we deleted the current session, navigate to landing
+        if (sessionId === currentSessionId) {
+          navigate('/');
+        }
+      } else {
+        alert('Failed to delete session. Please try again.');
+      }
     }
   };
 
@@ -46,7 +86,7 @@ export default function SidePanel({ closePanel }) {
 
       {/* Session History List */}
       <div className="flex-1 overflow-y-auto space-y-2 pr-1">
-        <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">
+        <h3 className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">
           Chat History
         </h3>
         {sessions.length === 0 ? (
@@ -55,18 +95,82 @@ export default function SidePanel({ closePanel }) {
           </p>
         ) : (
           sessions.map((session) => (
-            <button
+            <div
               key={session.sessionId}
-              onClick={() => handleSelectChat(session.sessionId)}
-              className={`w-full flex items-center justify-between gap-2 p-2 rounded-md text-left text-sm ${session.sessionId === currentSessionId ? 'bg-blue-100 dark:bg-blue-900' : 'hover:bg-gray-200 dark:hover:bg-gray-700'}`}
+              className={`group relative flex items-center gap-2 p-2 rounded-md text-left text-sm transition-colors ${
+                session.sessionId === currentSessionId
+                  ? 'bg-blue-100 dark:bg-blue-900'
+                  : 'hover:bg-gray-200 dark:hover:bg-gray-700'
+              }`}
+              onMouseEnter={() => setHoveredId(session.sessionId)}
+              onMouseLeave={() => setHoveredId(null)}
             >
-              <div className="flex items-center gap-2 truncate">
-                <MessageSquare size={16} />
-                <span className="truncate">{session.title}</span>
-              </div>
-              {/* Optional: Add a delete button later */}
-              {/* <Trash2 size={14} className="opacity-50 hover:opacity-100" /> */}
-            </button>
+              {editingId === session.sessionId ? (
+                // Edit mode
+                <div className="flex items-center gap-2 flex-1 min-w-0">
+                  <input
+                    type="text"
+                    value={editValue}
+                    onChange={(e) => setEditValue(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter') {
+                        handleSaveEdit(e, session.sessionId);
+                      } else if (e.key === 'Escape') {
+                        handleCancelEdit(e);
+                      }
+                    }}
+                    onClick={(e) => e.stopPropagation()}
+                    className="flex-1 px-2 py-1 text-sm rounded border border-blue-300 dark:border-blue-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    autoFocus
+                  />
+                  <button
+                    onClick={(e) => handleSaveEdit(e, session.sessionId)}
+                    className="p-1 rounded hover:bg-green-100 dark:hover:bg-green-900 text-green-600 dark:text-green-400"
+                    title="Save"
+                  >
+                    <Check size={14} />
+                  </button>
+                  <button
+                    onClick={handleCancelEdit}
+                    className="p-1 rounded hover:bg-red-100 dark:hover:bg-red-900 text-red-600 dark:text-red-400"
+                    title="Cancel"
+                  >
+                    <X size={14} />
+                  </button>
+                </div>
+              ) : (
+                // View mode
+                <>
+                  <button
+                    onClick={() => handleSelectChat(session.sessionId)}
+                    className="flex items-center gap-2 truncate flex-1 min-w-0 text-left"
+                  >
+                    <MessageSquare size={16} className="flex-shrink-0" />
+                    <span className="truncate">{session.title}</span>
+                  </button>
+                  
+                  {/* Action buttons - show on hover or when active */}
+                  {(hoveredId === session.sessionId || session.sessionId === currentSessionId) && (
+                    <div className="flex items-center gap-1 flex-shrink-0">
+                      <button
+                        onClick={(e) => handleEditClick(e, session)}
+                        className="p-1.5 rounded hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-600 dark:text-gray-300 opacity-70 hover:opacity-100 transition-opacity"
+                        title="Edit title"
+                      >
+                        <Edit2 size={14} />
+                      </button>
+                      <button
+                        onClick={(e) => handleDeleteClick(e, session.sessionId)}
+                        className="p-1.5 rounded hover:bg-red-200 dark:hover:bg-red-900 text-red-600 dark:text-red-400 opacity-70 hover:opacity-100 transition-opacity"
+                        title="Delete session"
+                      >
+                        <Trash2 size={14} />
+                      </button>
+                    </div>
+                  )}
+                </>
+              )}
+            </div>
           ))
         )}
       </div>
@@ -78,9 +182,8 @@ export default function SidePanel({ closePanel }) {
             M
           </div>
           <div className="flex flex-col">
-            {/* Based on your user summary, I know your name */}
             <span className="font-semibold text-sm">Manoj Murari</span>
-            <span className="text-xs text-gray-500">B.Tech Graduate</span>
+            <span className="text-xs text-gray-500 dark:text-gray-400">B.Tech Graduate</span>
           </div>
         </div>
       </div>

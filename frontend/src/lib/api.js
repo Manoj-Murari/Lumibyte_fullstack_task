@@ -16,6 +16,13 @@ export const getHistory = (id) =>
 export const ask = (sessionId, question) => 
   API.post(`/chat/${sessionId}/ask`, { question }).then(r => r.data.data);
 
+// Session management endpoints
+export const updateSession = (sessionId, title) =>
+  API.put(`/sessions/${sessionId}`, { title }).then(r => r.data.data);
+
+export const deleteSession = (sessionId) =>
+  API.delete(`/sessions/${sessionId}`).then(r => r.data);
+
 // Legacy exports for backward compatibility
 export const fetchSessions = () => API.get('/sessions');
 export const createNewChat = () => API.post('/sessions');
