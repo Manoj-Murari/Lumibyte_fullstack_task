@@ -1,0 +1,57 @@
+{
+  "1a2b3c4d": [
+    {
+      "type": "user",
+      "text": "What's my recent project activity?"
+    },
+    {
+      "type": "ai",
+      "text": "Here is a breakdown of your recent project activity:",
+      "table": {
+        "headers": ["Project", "Last Commit", "Status", "Team Members"],
+        "rows": [
+          ["CodeGrapher", "2025-09-05", "Active", "Manoj, Alex"],
+          ["Aegis AI", "2025-09-01", "In Review", "Manoj"],
+          ["Codex Veritas", "2025-09-19", "Sprint 14", "Manoj, Jane"]
+        ]
+      },
+      "feedback": null
+    }
+  ],
+  "5e6f7g8h": [
+    {
+      "type": "user",
+      "text": "Give me some tasks for today."
+    },
+    {
+      "type": "ai",
+      "text": "Here is a list of potential tasks for your day:",
+      "table": {
+        "headers": ["Task", "Priority", "Est. Time", "Context"],
+        "rows": [
+          ["Refactor API endpoint", "High", "2 hours", "Backend"],
+          ["Update README.md", "Low", "30 mins", "Docs"],
+          ["Fix layout bug on mobile", "Medium", "1 hour", "Frontend"]
+        ]
+      },
+      "feedback": null
+    },
+    {
+      "type": "user",
+      "text": "What about the news?"
+    },
+    {
+      "type": "ai",
+      "text": "Here are the top tech news articles for today:",
+      "table": {
+        "headers": ["Source", "Headline", "Category"],
+        "rows": [
+          ["TechCrunch", "New AI Model Shatters Benchmarks", "AI"],
+          ["The Verge", "Quantum Computing Milestone Achieved", "Hardware"],
+          ["Dev.to", "Why Tailwind is Overrated (And Why It's Not)", "Web Dev"]
+        ]
+      },
+      "feedback": null
+    }
+  ]
+}

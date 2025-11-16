@@ -1,0 +1,59 @@
+[
+  {
+    "role": "user",
+    "text": "..",
+    "time": "2025-11-16T20:14:07.307Z"
+  },
+  {
+    "role": "assistant",
+    "responseId": "table-1",
+    "answer": {
+      "id": "table-1",
+      "title": "Sales Summary",
+      "columns": [
+        "Region",
+        "Q1",
+        "Q2",
+        "Q3",
+        "Q4"
+      ],
+      "rows": [
+        [
+          "North",
+          "1200",
+          "1400",
+          "1300",
+          "1500"
+        ],
+        [
+          "South",
+          "900",
+          "1100",
+          "1150",
+          "1200"
+        ],
+        [
+          "East",
+          "800",
+          "950",
+          "1000",
+          "1100"
+        ],
+        [
+          "West",
+          "1100",
+          "1300",
+          "1250",
+          "1400"
+        ]
+      ]
+    },
+    "description": "Quarterly sales by region with totals and notes. The North region shows consistent growth, while the South region had a strong Q4 performance.",
+    "meta": {
+      "totalSales": "5400",
+      "averagePerQuarter": "1350",
+      "lastUpdated": "2025-11-17"
+    },
+    "time": "2025-11-16T20:14:07.307Z"
+  }
+]

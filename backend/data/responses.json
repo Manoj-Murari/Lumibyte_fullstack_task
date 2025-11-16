@@ -1,0 +1,88 @@
+[
+  {
+    "id": "table-1",
+    "title": "Sales Summary",
+    "columns": ["Region", "Q1", "Q2", "Q3", "Q4"],
+    "rows": [
+      ["North", "1200", "1400", "1300", "1500"],
+      ["South", "900", "1100", "1150", "1200"],
+      ["East", "800", "950", "1000", "1100"],
+      ["West", "1100", "1300", "1250", "1400"]
+    ],
+    "description": "Quarterly sales by region with totals and notes. The North region shows consistent growth, while the South region had a strong Q4 performance.",
+    "meta": {
+      "totalSales": "5400",
+      "averagePerQuarter": "1350",
+      "lastUpdated": "2025-11-17"
+    }
+  },
+  {
+    "id": "table-2",
+    "title": "Project Activity Breakdown",
+    "columns": ["Project", "Last Commit", "Status", "Team Members"],
+    "rows": [
+      ["CodeGrapher", "2025-09-05", "Active", "Manoj, Alex"],
+      ["Aegis AI", "2025-09-01", "In Review", "Manoj"],
+      ["Codex Veritas", "2025-09-19", "Sprint 14", "Manoj, Jane"],
+      ["DataFlow", "2025-09-10", "Planning", "Alex, Sarah"]
+    ],
+    "description": "Current project status across all active repositories. Most projects are in active development with regular commits.",
+    "meta": {
+      "totalProjects": "4",
+      "activeCount": "2",
+      "teamSize": "5"
+    }
+  },
+  {
+    "id": "table-3",
+    "title": "Daily Tasks & News",
+    "columns": ["Task", "Priority", "Est. Time", "Context"],
+    "rows": [
+      ["Refactor API endpoint", "High", "2 hours", "Backend"],
+      ["Update README.md", "Low", "30 mins", "Docs"],
+      ["Fix layout bug on mobile", "Medium", "1 hour", "Frontend"],
+      ["Write unit tests", "High", "3 hours", "Testing"]
+    ],
+    "description": "Prioritized task list for today. Focus on high-priority backend tasks first, then move to frontend improvements.",
+    "meta": {
+      "totalTasks": "4",
+      "estimatedHours": "6.5",
+      "highPriorityCount": "2"
+    }
+  },
+  {
+    "id": "table-4",
+    "title": "Tech News Summary",
+    "columns": ["Source", "Headline", "Category"],
+    "rows": [
+      ["TechCrunch", "New AI Model Shatters Benchmarks", "AI"],
+      ["The Verge", "Quantum Computing Milestone Achieved", "Hardware"],
+      ["Dev.to", "Why Tailwind is Overrated (And Why It's Not)", "Web Dev"],
+      ["Hacker News", "Rust 1.75 Released with New Features", "Programming"]
+    ],
+    "description": "Top technology news articles from today. AI and hardware developments are trending this week.",
+    "meta": {
+      "articleCount": "4",
+      "categories": ["AI", "Hardware", "Web Dev", "Programming"],
+      "date": "2025-11-17"
+    }
+  },
+  {
+    "id": "table-5",
+    "title": "User Analytics",
+    "columns": ["Metric", "This Month", "Last Month", "Change"],
+    "rows": [
+      ["Active Users", "12,450", "11,200", "+11.2%"],
+      ["Page Views", "245,000", "220,000", "+11.4%"],
+      ["Bounce Rate", "32%", "35%", "-3%"],
+      ["Avg. Session", "4m 32s", "4m 15s", "+6.7%"]
+    ],
+    "description": "Monthly user engagement metrics showing positive growth across all key indicators. User retention has improved significantly.",
+    "meta": {
+      "growthRate": "+11.3%",
+      "bestMetric": "Active Users",
+      "reportDate": "2025-11-17"
+    }
+  }
+]
+

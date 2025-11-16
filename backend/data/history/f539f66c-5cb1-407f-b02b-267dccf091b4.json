@@ -1,0 +1,54 @@
+[
+  {
+    "role": "user",
+    "text": "hi",
+    "time": "2025-11-16T20:13:44.077Z"
+  },
+  {
+    "role": "assistant",
+    "responseId": "table-5",
+    "answer": {
+      "id": "table-5",
+      "title": "User Analytics",
+      "columns": [
+        "Metric",
+        "This Month",
+        "Last Month",
+        "Change"
+      ],
+      "rows": [
+        [
+          "Active Users",
+          "12,450",
+          "11,200",
+          "+11.2%"
+        ],
+        [
+          "Page Views",
+          "245,000",
+          "220,000",
+          "+11.4%"
+        ],
+        [
+          "Bounce Rate",
+          "32%",
+          "35%",
+          "-3%"
+        ],
+        [
+          "Avg. Session",
+          "4m 32s",
+          "4m 15s",
+          "+6.7%"
+        ]
+      ]
+    },
+    "description": "Monthly user engagement metrics showing positive growth across all key indicators. User retention has improved significantly.",
+    "meta": {
+      "growthRate": "+11.3%",
+      "bestMetric": "Active Users",
+      "reportDate": "2025-11-17"
+    },
+    "time": "2025-11-16T20:13:44.077Z"
+  }
+]
